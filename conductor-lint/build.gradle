@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_7
+
+configurations {
+    lintChecks
+}
+
+dependencies {
+    implementation rootProject.ext.lintapi
+    implementation rootProject.ext.lintchecks
+
+    testImplementation rootProject.ext.lint
+    testImplementation rootProject.ext.lintTests
+
+    lintChecks files(jar)
+}
+
+jar {
+    manifest {
+        attributes('Lint-Registry': 'com.bluelinelabs.conductor.lint.IssueRegistry')
+    }
+}
+
+apply from: rootProject.file('dependencies.gradle')
